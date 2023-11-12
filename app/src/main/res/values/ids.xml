@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="timeTextView" type="id" />
+    <item name="guessesTextView" type="id" />
+    <item name="currentWordTextView" type="id" />
+    <item name="letterGridLayout" type="id" />
+
+    <item type="id" name="timerTextView" />
+    <item type="id" name="scoreTextView" />
+
+    <item name="custom_toast_layout" type="id" />
+
+</resources>

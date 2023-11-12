@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center"
+    tools:context=".SettingActivity">
+
+    <!-- Вибір мінімального та максимального набору букв -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Мінімальний набір букв:"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
+
+    <RadioGroup
+        android:id="@+id/minWordLengthRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/minWordLength4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/minWordLength5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5" />
+
+        <RadioButton
+            android:id="@+id/minWordLength6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="6"
+            android:checked="true" />
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Максимальний набір букв:"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
+
+    <RadioGroup
+        android:id="@+id/maxWordLengthRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/maxWordLength7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="7"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/maxWordLength8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8" />
+
+        <RadioButton
+            android:id="@+id/maxWordLength9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="9" />
+    </RadioGroup>
+
+    <!-- Час зворотного відліку -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Час зворотного відліку:"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
+
+    <!-- Вибір часу (1 хв, 2 хв, 5 хв) -->
+    <RadioGroup
+        android:id="@+id/timeRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/time1MinRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1 хвилина"/>
+
+        <RadioButton
+            android:id="@+id/time2MinRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2 хвилини"/>
+
+        <RadioButton
+            android:id="@+id/time5MinRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5 хвилин"/>
+    </RadioGroup>
+
+    <!-- Кнопка "Зберегти" -->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Зберегти та грати"
+        android:id="@+id/saveButton"/>
+
+</LinearLayout>

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Lab1_Shved</string>
+    <string name="toast_correct">Вгадано</string>
+    <string name="toast_incorrect">Неправильно</string>
+</resources>

@@ -1,0 +1,79 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/gameTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Час: 0 сек"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/pauseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gameTimer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp"
+        android:text="Пауза" />
+
+    <TextView
+        android:id="@+id/guessedWords"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gameTimer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="Кількість вгаданих слів: 0"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/scrambledWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/wordInputLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/guessedWords"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"/>
+
+    <GridLayout
+        android:id="@+id/letterGrid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/scrambledWord"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:columnCount="4"
+        android:rowCount="4" />
+
+    <Button
+        android:id="@+id/backspaceButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/letterGrid"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Backspace" />
+
+    <Button
+        android:id="@+id/exitButton"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="600dp"
+        android:backgroundTint="#FF5722"
+        android:text="Вийти в головне меню"
+        android:textColor="#FFFFFF" />
+
+
+</RelativeLayout>
