@@ -1,8 +1,11 @@
 package com.example.lab1_shved;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -11,11 +14,16 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class SettingActivity extends AppCompatActivity {
+import com.example.lab1_shved.Service.SettingService;
 
+
+public class SettingActivity extends AppCompatActivity {
+    private boolean isServiceBound = false;
+    public SettingService settingService;
     private RadioGroup minWordLengthRadioGroup;
     private RadioGroup maxWordLengthRadioGroup;
     private RadioGroup timeRadioGroup;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +33,10 @@ public class SettingActivity extends AppCompatActivity {
         minWordLengthRadioGroup = findViewById(R.id.minWordLengthRadioGroup);
         maxWordLengthRadioGroup = findViewById(R.id.maxWordLengthRadioGroup);
         timeRadioGroup = findViewById(R.id.timeRadioGroup);
+        // Загрузить настройки при запуске активити
 
-        loadSettings(); // Загрузить настройки під час запуску актівіті
+        Intent serviceIntent = new Intent(this, SettingService.class);
+        bindService(serviceIntent, serviceConnection, BIND_AUTO_CREATE);
 
         Button saveButton = findViewById(R.id.saveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -36,7 +46,7 @@ public class SettingActivity extends AppCompatActivity {
                 String selectedMaxLength = getSelectedMaxLength();
                 String selectedTime = getSelectedTime();
 
-                saveSettings(selectedMinLength, selectedMaxLength, selectedTime); // Сохранить настройки
+                settingService.saveSettings(selectedMinLength, selectedMaxLength, selectedTime); // Сохранить настройки
 
                 Toast.makeText(SettingActivity.this, "Налаштування збережені", Toast.LENGTH_SHORT).show();
 
@@ -48,6 +58,21 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
     }
+
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            SettingService.SettingsBinder binder = (SettingService.SettingsBinder) iBinder;
+            settingService = binder.getService();
+            isServiceBound = true;
+            settingService.loadSettings();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            isServiceBound = false;
+        }
+    };
 
     private String getSelectedMinLength() {
         int selectedId = minWordLengthRadioGroup.getCheckedRadioButtonId();
@@ -74,10 +99,9 @@ public class SettingActivity extends AppCompatActivity {
     private String getSelectedTime() {
         int selectedId = timeRadioGroup.getCheckedRadioButtonId();
         RadioButton selectedRadioButton = findViewById(selectedId);
-
         if (selectedRadioButton != null) {
             String selectedText = selectedRadioButton.getText().toString();
-            // отримуйте лише числове значення, видаляючи текстову позначку
+            // Извлеките только числовое значение, удалив текстовую метку
             String numericValue = selectedText.replaceAll("[^0-9]+", "");
             return numericValue;
         } else {
@@ -85,37 +109,7 @@ public class SettingActivity extends AppCompatActivity {
         }
     }
 
-    private void loadSettings() {
-        SharedPreferences sharedPreferences = getSharedPreferences("my_preferences", MODE_PRIVATE);
 
-        String minWordLength = sharedPreferences.getString("min_length", "4");
-        String maxWordLength = sharedPreferences.getString("max_length", "7");
-        String selectedTimeStr = sharedPreferences.getString("selected_time", "1");
-        int selectedTime = Integer.parseInt(selectedTimeStr);
-
-        setRadioGroupSelection(minWordLengthRadioGroup, minWordLength);
-        setRadioGroupSelection(maxWordLengthRadioGroup, maxWordLength);
-        setRadioGroupSelection(timeRadioGroup, String.valueOf(selectedTime)); // Convert the integer to a string for the radio group
-
-        // Set the value of time in the UI
-        for (int i = 0; i < timeRadioGroup.getChildCount(); i++) {
-            RadioButton radioButton = (RadioButton) timeRadioGroup.getChildAt(i);
-            if (radioButton.getText().toString().contains(String.valueOf(selectedTime))) {
-                timeRadioGroup.check(radioButton.getId());
-            }
-        }
-    }
-
-    private void saveSettings(String minWordLength, String maxWordLength, String selectedTime) {
-        SharedPreferences sharedPreferences = getSharedPreferences("my_preferences", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("min_length", minWordLength);
-        editor.putString("max_length", maxWordLength);
-        editor.putString("selected_time", selectedTime);
-        editor.apply();
-        Log.d("MyApp", "Settings saved: min_length = " + minWordLength + ", max_length = " + maxWordLength + ", selected_time = " + selectedTime);
-        //в консоль виписуються значення
-    }
 
     private void setRadioGroupSelection(RadioGroup radioGroup, String value) {
         for (int i = 0; i < radioGroup.getChildCount(); i++) {

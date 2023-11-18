@@ -228,7 +228,7 @@ public class GameActivity extends AppCompatActivity {
 
         letterGrid.removeAllViews();
 
-        for (int i = 0; i < letterList.size(); i++) {
+        for (int i = 0; i < letterList.size(); i++) { //генерація букв
             Button letterButton = (Button) getLayoutInflater().inflate(R.layout.letter_button, null);
             letterButton.setText(letterList.get(i).toString());
             letterButton.setBackgroundResource(R.drawable.letter_frame);
@@ -242,14 +242,14 @@ public class GameActivity extends AppCompatActivity {
             letterGrid.addView(letterButton);
 
             final int finalI = i;
-            letterButton.setOnClickListener(new View.OnClickListener() {
+            letterButton.setOnClickListener(new View.OnClickListener() {//буква стає в слово
                 @Override
                 public void onClick(View view) {
                     handleLetterClick(letterButton, letterList.get(finalI));
                 }
             });
 
-            letterButton.setOnLongClickListener(new View.OnLongClickListener() {
+            letterButton.setOnLongClickListener(new View.OnLongClickListener() {//робота бекспейсу
                 @Override
                 public boolean onLongClick(View view) {
                     handleBackspaceClick();
@@ -316,24 +316,6 @@ public class GameActivity extends AppCompatActivity {
 
             showCustomToast();
         }
-    }
-
-    private void endGame() {
-        timer.cancel();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (guessedWordCount == 5) {
-                    Intent winIntent = new Intent(GameActivity.this, WinGameActivity.class);
-                    startActivity(winIntent);
-                    finish();
-                } else {
-                    Intent gameOverIntent = new Intent(GameActivity.this, GameOverActivity.class);
-                    startActivity(gameOverIntent);
-                    finish();
-                }
-            }
-        }, 2000);
     }
 
     private void showCustomToast() {

@@ -39,6 +39,11 @@
             android:label=".WinGameActivity">
         </activity>
 
+        <service
+            android:name=".Service.SettingService"
+            android:exported="false">
+        </service>
+
     </application>
 
 </manifest>
